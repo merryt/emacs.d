@@ -1,3 +1,6 @@
+this is my fork of castlemacs which includes some of my personal changes
+
+
 #+SETUPFILE: ~/code/org-themes/org-html-themes/setup/theme-readtheorg.setup
 #+LANGUAGE: en
 #+TITLE: Castlemacs: modern, minimalist Emacs for macOS ⌘
