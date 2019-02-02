@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;;; -*- lexicalP-binding: t -*-
 
 
 ;; ====
@@ -696,3 +696,65 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; =======
 ;; THE END
+
+
+;; =======
+;;Start of Tylers stuff that will most likely break everything
+;; =======
+
+
+
+(global-set-key (kbd "M-k") 'kill-whitespace)
+
+(defun kill-whitespace ()
+  "Kill the whitespace between two non-whitespace characters"
+  (interactive "*")
+  (save-excursion
+    (save-restriction
+      (save-match-data
+        (progn
+          (re-search-backward "[^ \t\r\n]" nil t)
+          (re-search-forward "[ \t\r\n]+" nil t)
+          (replace-match "" nil nil))))))
+
+(setq projectile-project-search-path '("~/dubs/"))
+
+(global-set-key [C-M-left] 'windmove-left)          ; move to left window
+(global-set-key [C-M-right] 'windmove-right)        ; move to right window
+(global-set-key [C-M-up] 'windmove-up)              ; move to upper window
+(global-set-key [C-M-down] 'windmove-down)          ; move to lower window
+
+(defun kill-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+
+(defun newline-without-break-of-line ()
+"1. move to end of the line.
+  2. insert newline with index"
+
+(interactive)
+(let ((oldpos (point)))
+  (end-of-line)
+  (newline-and-indent)))
+
+(global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+
+;; m-x describe-mode to get more info for learning
+(global-set-key (kbd "C-f") 'find-name-dired)
+
+(defun infer-indentation-style ()
+  ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
+  ;; neither, we use the current indent-tabs-mode
+  (let ((space-count (how-many "^  " (point-min) (point-max)))
+        (tab-count (how-many "^\t" (point-min) (point-max))))
+    (if (> space-count tab-count) (setq indent-tabs-mode nil))
+    (if (> tab-count space-count) (setq indent-tabs-mode t))))
+
+(global-linum-mode 1)
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'zenburn t)
+
+(setq w32-apps-modifier nil)
+(setq w32-apps-modifier 'super) ; Left Windows key
