@@ -758,3 +758,5 @@ point reaches the beginning or end of the buffer, stop there."
 
 (setq w32-apps-modifier nil)
 (setq w32-apps-modifier 'super) ; Left Windows key
+
+(add-hook 'after-init-hook #'global-emojify-mode)
